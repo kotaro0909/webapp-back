@@ -28,25 +28,9 @@ class HealthCheckControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(new HealthCheckController()).build();
     }
 
-    @Test
-    void testCheckHealth_HttpStatusCode() throws Exception {
-        mockMvc.perform(get(URL_HEALTH)).andExpect(status().isOk());
-    }
-
-    @Test
-    void testCheckHealth_Result() throws Exception {
-        String json = mockMvc.perform(get(URL_HEALTH)).andReturn().getResponse().getContentAsString();
-        Map<String, String> resMap = new ObjectMapper().readValue(json, new TypeReference<>(){});
-        assertResult(resMap.get("result"));
-    }
-
-    @Test
-    void testCheckHealth_CheckDatetime() throws Exception {
-        String json = mockMvc.perform(get(URL_HEALTH)).andReturn().getResponse().getContentAsString();
-        Map<String, String> resMap = new ObjectMapper().readValue(json, new TypeReference<>(){});
-        assertCheckDatetime(resMap.get("checkDatetime"));
-    }
-
+    /**
+     * 返却値のオブジェクトの設定値確認
+     */
     @Test
     void testHealthCheckResult() {
         HealthCheckController.HealthCheckResult res = new HealthCheckController.HealthCheckResult();
@@ -54,9 +38,49 @@ class HealthCheckControllerTest {
         assertCheckDatetime(res.getCheckDatetime());
     }
 
+    /**
+     * コントローラの戻り値：ステータスコード 200
+     * @throws Exception
+     */
+    @Test
+    void testCheckHealth_HttpStatusCode() throws Exception {
+        mockMvc.perform(get(URL_HEALTH)).andExpect(status().isOk());
+    }
+
+    /**
+     * コントローラーの戻り値：result="success"
+     * @throws Exception
+     */
+    @Test
+    void testCheckHealth_Result() throws Exception {
+        String json = mockMvc.perform(get(URL_HEALTH)).andReturn().getResponse().getContentAsString();
+        Map<String, String> resMap = new ObjectMapper().readValue(json, new TypeReference<>(){});
+        assertResult(resMap.get("result"));
+    }
+
+    /**
+     * コントローラーの戻り値：checkDatetime=システム日時
+     * @throws Exception
+     */
+    @Test
+    void testCheckHealth_CheckDatetime() throws Exception {
+        String json = mockMvc.perform(get(URL_HEALTH)).andReturn().getResponse().getContentAsString();
+        Map<String, String> resMap = new ObjectMapper().readValue(json, new TypeReference<>(){});
+        assertCheckDatetime(resMap.get("checkDatetime"));
+    }
+
+    /**
+     * 戻り値[result]のassertion
+     * @param actual コントローラーから返却された戻り値
+     */
     private void assertResult(String actual) {
         assertEquals("success", actual);
     }
+
+    /**
+     * 戻り値[checkDatetime]のassertion
+     * @param actual コントローラーから返却された戻り値
+     */
     private void assertCheckDatetime(String actual) {
         assertEquals(true, DateUtils.isDate(actual));
     }
