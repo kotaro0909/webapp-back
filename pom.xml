@@ -85,6 +85,23 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.devskiller.jpa2ddl</groupId>
+                <artifactId>jpa2ddl-maven-plugin</artifactId>
+                <version>0.10.0</version>
+                <configuration>
+                    <outputPath>src/main/resources/schema-stop.sql</outputPath>
+                    <packages>
+                        <package>com.example.backed</package>
+                    </packages>
+                    <jpaProperties>
+                        <property>
+                            <name>h2.dialect</name>
+                            <value>org.hibernate.dialect.H2Dialect</value>
+                        </property>
+                    </jpaProperties>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
