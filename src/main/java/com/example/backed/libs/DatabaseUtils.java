@@ -25,10 +25,11 @@ public class DatabaseUtils {
      */
     public static DataSource getDataSource() {
         try {
-            String driverName = PropertyUtils.getProperty(PROP_DRIVER_NAME);
-            String connectionUrl = PropertyUtils.getProperty(PROP_CONNECTION_URL);
-            String user = PropertyUtils.getProperty(PROP_USER);
-            String pass = PropertyUtils.getProperty(PROP_PASSWORD);
+            AppProfile prof = AppProfile.getInstance();
+            String driverName = prof.getEnv(PROP_DRIVER_NAME);
+            String connectionUrl = prof.getEnv(PROP_CONNECTION_URL);
+            String user = prof.getEnv(PROP_USER);
+            String pass = prof.getEnv(PROP_PASSWORD);
 
             DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
             dataSourceBuilder.driverClassName(driverName);

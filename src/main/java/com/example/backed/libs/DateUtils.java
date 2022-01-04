@@ -5,8 +5,9 @@ import java.util.Date;
 import java.util.stream.Stream;
 
 public class DateUtils {
-    public static String PROP_SQL_SYSDATE = "example.datasource.sql.sysdate";
-    public static String PROP_TEST_DATE_VALUE = "example.sysdate.test.value";
+
+    public static String PROP_SQL_SYSDATE = "example.date-utils.get-now.sql-value";
+    public static String PROP_TEST_DATE_VALUE = "example.date-utils.get-now.test-value";
 
     private DateUtils() {}
 
@@ -30,8 +31,8 @@ public class DateUtils {
      */
     public static Date getNow() {
         //プロファイルが「dev」かつプロパティファイルに固定の日時がセットされている場合
-        if (PropertyUtils.getActiveProfile() == PropertyUtils.ActiveProfile.dev) {
-            String testValue = PropertyUtils.getProperty(PROP_TEST_DATE_VALUE);
+        if (AppProfile.getInstance().getProfile() == ActiveProfile.DEV) {
+            String testValue = AppProfile.getInstance().getEnv(PROP_TEST_DATE_VALUE);
             if (testValue != null) {
                 //UTのassert用に、プロパティファイルから固定値を取得する
                 return DateUtils.toDate(testValue);
@@ -39,7 +40,7 @@ public class DateUtils {
         }
         //DB接続がある場合
         try {
-            String sql = PropertyUtils.getProperty(PROP_SQL_SYSDATE);
+            String sql = AppProfile.getInstance().getEnv(PROP_SQL_SYSDATE);
             if (sql != null) {
                 //DBサーバの日時を取得するSQLがセットされている場合
                 Date d = DatabaseUtils.getRowValue(sql, 1);
