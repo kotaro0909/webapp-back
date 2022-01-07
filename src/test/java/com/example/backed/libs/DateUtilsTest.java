@@ -1,23 +1,28 @@
 package com.example.backed.libs;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles(profiles = "dev")
 class DateUtilsTest {
+    Logger logger = Logger.getLogger(DateUtilsTest.class.getName());
 
     @Test
     void getNow() {
         ActiveProfile p = AppProfile.getInstance().getProfile();
         Date n = DateUtils.getNow();
-        System.out.println(n);
+        //System.out.println(n);
+        logger.info(n.toString());
+        logger.info(AppProfile.getInstance().getEnv("spring.sql.init.data-locations"));
     }
 
     @Test

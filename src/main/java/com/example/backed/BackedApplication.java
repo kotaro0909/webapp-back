@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @SpringBootApplication
 public class BackedApplication extends WebMvcConfigurerAdapter {
 
-    public static final String APPLICATION_PROPERTIES = "/application.properties";
+    public static final String APPLICATION_PROPERTIES = "/application.properties.xxxx";
 
     private static ApplicationContext context;
     public static ApplicationContext getContext() {
