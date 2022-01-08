@@ -1,6 +1,6 @@
-create sequence hibernate_sequence start with 1 increment by 1;
+create sequence IF NOT EXISTS hibernate_sequence start with 1 increment by 1;
 
-    create table Item (
+    create table IF NOT EXISTS Item (
        itemId bigint not null,
         itemCode varchar(20),
         itemName varchar(255),
@@ -9,7 +9,7 @@ create sequence hibernate_sequence start with 1 increment by 1;
         primary key (itemId)
     );
 
-    create table LoginUser (
+    create table IF NOT EXISTS LoginUser (
        loginUserId bigint not null,
         loginId varchar(20),
         loginPassword varchar(255),
@@ -17,7 +17,7 @@ create sequence hibernate_sequence start with 1 increment by 1;
         primary key (loginUserId)
     );
 
-    create table OrderDetails (
+    create table IF NOT EXISTS OrderDetails (
        orderDetailId bigint not null,
         itemCode varchar(20),
         itemId bigint,
@@ -27,7 +27,7 @@ create sequence hibernate_sequence start with 1 increment by 1;
         primary key (orderDetailId)
     );
 
-    create table OrderMain (
+    create table IF NOT EXISTS OrderMain (
        orderMainId bigint not null,
         itemCode1 varchar(20),
         itemCode2 varchar(20),
