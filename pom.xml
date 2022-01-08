@@ -77,12 +77,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>properties-maven-plugin</artifactId>
-            <version>1.0.0</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -100,12 +94,12 @@
                     </excludes>
                 </configuration>
             </plugin>
-            <plugin>
+            <plugin> <!-- テーブル作成DDLを生成するプラグイン -->
                 <groupId>com.devskiller.jpa2ddl</groupId>
                 <artifactId>jpa2ddl-maven-plugin</artifactId>
                 <version>0.10.0</version>
                 <configuration>
-                    <outputPath>src/test/resources/schema-stop.sql</outputPath>
+                    <outputPath>src/main/resources/schema.sql</outputPath>
                     <packages>
                         <package>com.example.backed</package>
                     </packages>
@@ -131,6 +125,7 @@
             </activation>
             <properties>
                 <maven.test.skip>false</maven.test.skip>
+                <tomcat.server.port>80</tomcat.server.port>
             </properties>
             <build>
                 <resources>

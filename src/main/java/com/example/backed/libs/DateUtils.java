@@ -1,5 +1,7 @@
 package com.example.backed.libs;
 
+import com.example.common.StringUtils;
+
 import java.util.Arrays;
 import java.util.Date;
 import java.util.stream.Stream;
@@ -33,7 +35,7 @@ public class DateUtils {
         //プロファイルが「dev」かつプロパティファイルに固定の日時がセットされている場合
         if (AppProfile.getInstance().getProfile() == ActiveProfile.DEV) {
             String testValue = AppProfile.getInstance().getEnv(PROP_TEST_DATE_VALUE);
-            if (testValue != null) {
+            if (StringUtils.isEmpty(testValue)) {
                 //UTのassert用に、プロパティファイルから固定値を取得する
                 return DateUtils.toDate(testValue);
             }
