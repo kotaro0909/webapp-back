@@ -125,7 +125,6 @@
             </activation>
             <properties>
                 <maven.test.skip>false</maven.test.skip>
-                <tomcat.server.port>80</tomcat.server.port>
             </properties>
             <build>
                 <resources>
